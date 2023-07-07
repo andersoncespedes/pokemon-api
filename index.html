@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-wrap: wrap;
+            height: 100vh;
+        }
+        header {
+            width: 100%;
+            align-self: flex-start;
+            background-color: rgb(255, 247, 22);
+            color:rgb(0, 145, 255);
+        }
+        header nav ul li{
+            list-style: none;
+            display: inline-flex;
+            padding: 20px;
+        }
+        
+        #pokemones{
+            display: flex;
+            flex-wrap: wrap;
+            margin: auto;
+            width: 80%;
+        }
+        .card{
+            background-color: red;
+            margin: 5px;
+            border-radius: 5px;
+            width: 24%;
+            text-align: center;
+        }
+        .card .card-head{
+            background:green;
+            text-align: center;
+            padding: 10px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>Pokemon</li>
+                <li>Tipos</li>
+                <li>Moves</li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="pokemones">
+        
+        </div>
+    </main>
+    <script src="modulos/index.js" type="module"></script>
+</body>
+</html>
