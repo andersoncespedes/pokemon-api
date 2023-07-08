@@ -5,103 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-        body{
-            display: flex;
-            flex-wrap: wrap;
-            height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        header {
-            width: 100%;
-            align-self: flex-start;
-            background-color: rgb(255, 247, 22);
-            color:rgb(0, 145, 255);
-        }
-        header nav ul li{
-            list-style: none;
-            display: inline-flex;
-            padding: 20px;
-        }
-        
-        #pokemones{
-            display: flex;
-            flex-wrap: wrap;
-            margin: auto;
-            width: 70%;
-        }
-        img{
-            width: 100%;
-            height: 300px;
-            text-align: center;
-        }
-        .card{
-            background-color: rgb(194, 168, 168);
-            margin: 5px;
-            border-radius: 5px;
-            width: 24%;
-            
-        }
-        .card .card-head{
-            padding: 10px;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-
-        }
-        .habilidades{
-            padding: 10px;
-        }
-        .grass, .fire, .poison, .bug, .normal, .water, .flying{
-            
-            padding: 5px;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-        .grass{
-            background-color: rgb(49, 235, 49);
-        }
-        .fire{
-            background-color: rgb(255, 0, 0);
-        }
-        .poison{
-            background-color: rgb(228, 87, 247);
-        }
-        .bug{
-            background-color: rgb(135, 255, 131);
-        }
-        .normal{
-            background-color: beige;
-        }
-        .water{
-            background-color: rgb(49, 161, 235);
-        }
-        .flying{
-            background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
-        }
-    </style>
+    <link rel="stylesheet" href="estilos/estyle.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li>Home</li>
-                <li>Pokemon</li>
-                <li>Tipos</li>
-                <li>Moves</li>
-            </ul>
-        </nav>
-    </header>
+    <div id="pokemonSolo">
+        <div id="pokedato">
+
+        </div>
+    </div>
     <main>
         <div id="pokemones">
-        
+            
         </div>
     </main>
     <script src="modulos/index.js" type="module"></script>
+    <script>
+        async function pokeModal(param){
+            let cont = document.getElementById("pokedato");
+            let conta = document.getElementById("pokemonSolo");
+            
+            let pokemon = param.getAttribute("id");
+            let dato = await fetch("https://pokeapi.co/api/v2/pokemon/"+ pokemon);
+            let pokeDato = await dato.json();
+            let stats = pokeDato.stats.map(e => [e.stat.name, e.base_stat]);
+            console.log(stats);
+            cont.innerHTML = `
+            <div class = "poke-img">
+                N ${pokeDato["order"]}
+                <div style = "margin:10px; border-radius:10px; text-align:center;" class = "b${pokeDato.types[0].type["name"]}">
+                    <img src = "${pokeDato.sprites["front_default"]}">
+                </div>
+                ${pokeDato.name}
+            </div>
+            <div class = "datos">
+                <h2>Datos</h2>
+                
+            </div>
+            `;
+            conta.style.display="flex";
+            console.log(pokeDato);
+        }
+    </script>
 </body>
 </html>

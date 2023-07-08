@@ -36,9 +36,11 @@ Api.prototype.generador = async function(pokedato){
     let tipos =  this.types(pokedato.types);
     console.log(tipos);
     this.content.innerHTML += `
-    <div class = "card">
+    <div class = "card" id = "${pokedato["name"]}" onclick = "pokeModal(this);">
+        <div style = "text-align:center; border:2px solid black; margin:5px; border-radius:10px" class = "b${pokedato.types[0].type["name"]}">
+            <img src = "${pokedato.sprites["front_default"]}" class= "imagen">
+        </div>
         
-        <img src = "${pokedato.sprites["other"]["official-artwork"]["front_default"]}" class= "imagen">
         <div class = "card-head">
             N ${pokedato.order}
             <h2>${pokedato["name"]}</h2>
@@ -49,5 +51,6 @@ Api.prototype.generador = async function(pokedato){
     </div>
     `;
 }
+
 const api = new Api("https://pokeapi.co/api/v2/pokemon");
 api.Rec();
