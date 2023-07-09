@@ -26,7 +26,6 @@ Api.prototype.Rec = async function(){
     datos.results.forEach(async element => {
         let pokedato =  await this.pokeDatos(element.url);
         this.generador(pokedato)
-        console.log(pokedato);
     });
 } 
 Api.prototype.types = function(types){
@@ -34,15 +33,14 @@ Api.prototype.types = function(types){
 }
 Api.prototype.generador = async function(pokedato){
     let tipos =  this.types(pokedato.types);
-    console.log(tipos);
     this.content.innerHTML += `
     <div class = "card" id = "${pokedato["name"]}" onclick = "pokeModal(this);">
-        <div style = "text-align:center; border:2px solid black; margin:5px; border-radius:10px" class = "b${pokedato.types[0].type["name"]}">
+        <div style = "text-align:center; border:2px solid black; margin:5px; border-radius:10px" class = "b${pokedato.types[0].type["name"]} data">
             <img src = "${pokedato.sprites["front_default"]}" class= "imagen">
         </div>
         
         <div class = "card-head">
-            N ${pokedato.order}
+            N°${pokedato.id}
             <h2>${pokedato["name"]}</h2>
         </div>
         <div class = "habilidades">

@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="estilos/estyle.css">
 </head>
 <body>
+    <div id="carga">
+
+    </div>
     <div id="pokemonSolo">
         <div id="pokedato">
 
@@ -20,26 +23,74 @@
     </main>
     <script src="modulos/index.js" type="module"></script>
     <script>
+      
         async function pokeModal(param){
             let cont = document.getElementById("pokedato");
             let conta = document.getElementById("pokemonSolo");
-            
             let pokemon = param.getAttribute("id");
             let dato = await fetch("https://pokeapi.co/api/v2/pokemon/"+ pokemon);
             let pokeDato = await dato.json();
             let stats = pokeDato.stats.map(e => [e.stat.name, e.base_stat]);
-            console.log(stats);
+            let stados = "";
+            let descripcion = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + pokeDato.id);
+            let pokeDesc = await descripcion.json();
+            let habilidades = "";
+            pokeDato.abilities.forEach(e => {
+                habilidades += `<li class = "abilities">${e.ability.name}</li>`;
+            }
+                )
+            console.log(habilidades)
+            let desc = pokeDesc.flavor_text_entries.find(e => e.language.name == 'en').flavor_text;
+            let tipos = pokeDato.types.map(e => `<span class = "${e.type.name}">${e.type.name}</span>`);
+            stats.forEach(e => {
+                let statdiv =   (e[1] / 255) * 100;
+                console.log(statdiv)
+                stados += `
+                    ${e[0]}: ${e[1]}
+                    <div class = " content"> 
+                    <div class = "${e[0]}" style = "width:${statdiv.toFixed(2)}%; border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                        
+                    </div>
+                </div>`;
+            })
             cont.innerHTML = `
-            <div class = "poke-img">
-                N ${pokeDato["order"]}
-                <div style = "margin:10px; border-radius:10px; text-align:center;" class = "b${pokeDato.types[0].type["name"]}">
-                    <img src = "${pokeDato.sprites["front_default"]}">
+            <div class = "side-cont b${pokeDato.types[0].type["name"]}">
+                <div class = "poke-img">
+                    
+                    <div style = "margin:10px; border-radius:10px; text-align:center;">
+                        <img style = "max-width:120px; min-width:50px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokeDato["id"]}.gif">
+                        N°${pokeDato["id"]}
+                    </div>
+                    
+                    <center><h2> ${pokeDato.name}</h2></center>
                 </div>
-                ${pokeDato.name}
+                <div class = "datos">
+                    <h2>Datos</h2><br>
+                    ${stados}
+                </div>
             </div>
-            <div class = "datos">
-                <h2>Datos</h2>
-                
+            <div class = "principal">
+                <h2>Tipos</h2>
+                 ${tipos.join(" ")}
+                <h2>Descripcion</h2>
+                ${desc}
+                <h2>Habilidades</h2>
+                <ul class= "habilid">
+                    ${habilidades}
+                </ul>
+                <div class = "row">
+                    <div class = "col">
+                        <h2>Peso</h2>
+                        ${pokeDato.weight / 10} Kg 
+                    </div>
+                    <div class = "col">
+                        <h2>Altura</h2>
+                        ${pokeDato.height / 10} Kg 
+                    </div>
+                </div>
+                <h2>Evoluciones</h2>
+                <div class = "evoluciones">
+                </div>
             </div>
             `;
             conta.style.display="flex";
