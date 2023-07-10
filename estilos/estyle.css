@@ -55,8 +55,9 @@ body{
     background-image: url("https://c.wallhere.com/photos/68/db/Pok_mon-189613.jpg!d") ;
     background-size: cover;
 }
-main{
-    
+.titulo-total{
+    width: 50%;
+    margin: auto;
 }
 header {
     width: 100%;
@@ -69,7 +70,16 @@ header nav ul li{
     display: inline-flex;
     padding: 20px;
 }
+.evoluciones{
+    display: flex;
+    width: 100%;
+}
+.evoluciones img{
+    width: 100%;
+    min-height: 150px;
+    max-height: 180px;
 
+}
 #pokemones{
     display: flex;
     flex-wrap: wrap;
@@ -100,6 +110,8 @@ header nav ul li{
     padding: 10px;
     color: rgb(0, 0, 0);
     border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+
     border-right: black 2px solid;
 }
 #pokedato{
@@ -109,8 +121,7 @@ header nav ul li{
     background-position: -190px;
     display: flex;
     width: 50%;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
+    border-radius: 50px;
     margin: auto;
     background-color: rgb(241, 241, 241);
 }
@@ -125,6 +136,7 @@ header nav ul li{
     padding: 10px;
     width: 60%;
     border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 
     text-align: center;
     background-color: #ffffff;

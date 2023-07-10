@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="estilos/estyle.css">
 </head>
 <body>
+    <div class="titulo-total">
+        <img src="./estilos/pngwing.com.png" alt="" srcset="">
+    </div>
     <div id="carga">
 
     </div>
@@ -23,23 +26,72 @@
     </main>
     <script src="modulos/index.js" type="module"></script>
     <script>
-      
+        const cont = document.getElementById("pokedato");
+        const conta = document.getElementById("pokemonSolo");
+        let evolucion_arr = [];
+        async function busqueda(arr){
+            let reg = /\/(\d+)\/$/
+            if(arr["chain"] !== undefined){
+                let car = await arr["chain"];
+                
+                let id = car.species.url.match(reg)[1]
+                console.log(id)
+                evolucion_arr.push([car, await datoPokemon(id)])
+                await busqueda(car)
+                return car; 
+            }
+            if(arr.evolves_to.length == 0) return;
+            let car = await arr.evolves_to.find(e => e.evolves_to); 
+            let id = car.species.url.match(reg)[1]
+            evolucion_arr.push([car, await datoPokemon(id)])
+            await busqueda(car)
+            
+            return car; 
+        }
+        async function evolvChain(id){
+            evolucion_arr = [];
+            let evolucion = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${id}`);
+            let json = await evolucion.json();
+            let cadena = json;
+            console.log(await busqueda(cadena))
+            return cadena
+        }
+        async function datoPokemon(id){
+            let dato = await fetch("https://pokeapi.co/api/v2/pokemon/"+ id);
+            return await dato.json();
+        }
+        function cerrar(param){
+            conta.style.display = "none";
+        }
         async function pokeModal(param){
-            let cont = document.getElementById("pokedato");
-            let conta = document.getElementById("pokemonSolo");
+            
             let pokemon = param.getAttribute("id");
-            let dato = await fetch("https://pokeapi.co/api/v2/pokemon/"+ pokemon);
-            let pokeDato = await dato.json();
+            let pokeDato = await datoPokemon(pokemon);
             let stats = pokeDato.stats.map(e => [e.stat.name, e.base_stat]);
             let stados = "";
             let descripcion = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + pokeDato.id);
             let pokeDesc = await descripcion.json();
             let habilidades = "";
+            let descom = pokeDesc.evolution_chain.url.match(/\/(\d+)\/$/);
+            
+            let chainId = descom[1];
+            await evolvChain(chainId);
+            let evolucion = "";
+            evolucion_arr.forEach((e, i) => {
+                evolucion +=  `
+                <div style = "width:31%; margin:4px">
+                    
+                    <img src= "${e[1].sprites["front_default"]}">
+                    ${e[0].species.name}
+                </div>
+                
+                `
+            })
+            console.log(evolucion_arr)
             pokeDato.abilities.forEach(e => {
                 habilidades += `<li class = "abilities">${e.ability.name}</li>`;
             }
                 )
-            console.log(habilidades)
             let desc = pokeDesc.flavor_text_entries.find(e => e.language.name == 'en').flavor_text;
             let tipos = pokeDato.types.map(e => `<span class = "${e.type.name}">${e.type.name}</span>`);
             stats.forEach(e => {
@@ -49,7 +101,6 @@
                     ${e[0]}: ${e[1]}
                     <div class = " content"> 
                     <div class = "${e[0]}" style = "width:${statdiv.toFixed(2)}%; border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                        
                     </div>
                 </div>`;
             })
@@ -58,7 +109,7 @@
                 <div class = "poke-img">
                     
                     <div style = "margin:10px; border-radius:10px; text-align:center;">
-                        <img style = "max-width:120px; min-width:50px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokeDato["id"]}.gif">
+                        <img style = "max-width:120px; min-width:80px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokeDato["id"]}.gif">
                         N°${pokeDato["id"]}
                     </div>
                     
@@ -89,8 +140,10 @@
                     </div>
                 </div>
                 <h2>Evoluciones</h2>
-                <div class = "evoluciones">
+                <div class = "evoluciones" id = "evolucion">
+                    ${evolucion}
                 </div>
+                <button onclick = "cerrar(this)">Cerrar</button>
             </div>
             `;
             conta.style.display="flex";
