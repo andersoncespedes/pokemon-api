@@ -7,6 +7,24 @@
     margin: 0;
     box-sizing: border-box;
 }
+.cont-botones{
+    width: 100%;
+    display: flex;
+}
+.cont-botones button{
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 40px;
+    margin: 10px;
+    background-color: #f16e57;
+    padding: 10px;
+}
+.cont-botones div{
+    height: 40px;
+    margin: auto;
+}
 .hp{
     background-color: green;
 }
@@ -94,6 +112,16 @@ header nav ul li{
     height: 100%;
     display: none;
     position: fixed;
+}
+main .busqueda{
+    width: 20%;
+    margin:auto
+}
+main .busqueda form input[type = text]{
+    height: 30px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
 }
 .card:hover{
     border:3px solid rgb(255, 3, 3);
