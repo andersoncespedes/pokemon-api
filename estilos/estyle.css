@@ -176,7 +176,7 @@ img{
     font-size: 20px;
     
 }
-.grass, .fire, .poison, .bug, .normal, .water, .flying{
+.bord{
     padding: 5px;
     padding-left: 30px;
     padding-right: 30px;
@@ -205,6 +205,18 @@ img{
 .bflying{
     background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
 }
+.belectric{
+    background: -webkit-linear-gradient(180deg, #eed535 50%, #eed535 50%);
+}
+.bground{
+    background:#ab9842;
+}
+.bpsychic{
+    background: -webkit-linear-gradient(180deg, #f366b9 50%, #f366b9 50%);
+}
+.brock{
+    background: -webkit-linear-gradient(180deg, #a38c21 50%, #a38c21 50%);
+}
 .grass{
     background-color: rgb(49, 235, 49);
 }
@@ -226,4 +238,58 @@ img{
 }
 .flying{
     background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
+}
+.electric{
+    background: -webkit-linear-gradient(90deg, #eed535 50%, #eed535 50%);
+}
+.ground{
+    background: -webkit-linear-gradient(90deg, #f7de3f 50%, #ab9842 50%);
+}
+.psychic{
+    background: -webkit-linear-gradient(180deg, #f366b9 50%, #f366b9 50%);
+}
+.rock{
+    background: -webkit-linear-gradient(180deg, #a38c21 50%, #a38c21 50%);
+}
+.bfairy{
+    background: -webkit-linear-gradient(180deg, #51c4e7 50%, #51c4e7 50%);
+}
+.fairy{
+    background: -webkit-linear-gradient(180deg, #51c4e7 50%, #51c4e7 50%);
+}
+.bfighting{
+    background: -webkit-linear-gradient(180deg, #d56723 50%, #d56723 50%);  
+  }
+.fighting{
+  background: -webkit-linear-gradient(180deg, #d56723 50%, #d56723 50%);  
+}
+.ice {
+    background: -webkit-linear-gradient(180deg, #51c4e7 50%, #51c4e7 50%);
+}
+.bice {
+    background: -webkit-linear-gradient(180deg, #51c4e7 50%, #51c4e7 50%);
+}
+.dragon {
+    background: -webkit-linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
+}
+.bdragon {
+    background: -webkit-linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
+}
+.bdark {
+    background: -webkit-linear-gradient(180deg, #707070 50%, #707070 50%);
+}
+.dark {
+    background: -webkit-linear-gradient(180deg, #707070 50%, #707070 50%);
+}
+.bghost {
+    background: -webkit-linear-gradient(180deg, #7b62a3 50%, #7b62a3 50%);
+}
+.ghost {
+    background: -webkit-linear-gradient(180deg, #7b62a3 50%, #7b62a3 50%);
+}
+.bsteel {
+    background: -webkit-linear-gradient(180deg, #9eb7b8 50%, #9eb7b8 50%);
+}
+.steel {
+    background: -webkit-linear-gradient(180deg, #9eb7b8 50%, #9eb7b8 50%);
 }

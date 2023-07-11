@@ -23,6 +23,10 @@
         <div id="pokemones">
             
         </div>
+        <div>
+            <button id="prev">Previus</button>
+            <button id = "next">Next</button>
+        </div>
     </main>
     <script src="modulos/index.js" type="module"></script>
     <script>
@@ -92,8 +96,8 @@
                 habilidades += `<li class = "abilities">${e.ability.name}</li>`;
             }
                 )
-            let desc = pokeDesc.flavor_text_entries.find(e => e.language.name == 'en').flavor_text;
-            let tipos = pokeDato.types.map(e => `<span class = "${e.type.name}">${e.type.name}</span>`);
+            let desc = pokeDesc.flavor_text_entries.find(e => e.language.name == 'es').flavor_text;
+            let tipos = pokeDato.types.map(e => `<span class = "${e.type.name} bord">${e.type.name}</span>`);
             stats.forEach(e => {
                 let statdiv =   (e[1] / 255) * 100;
                 console.log(statdiv)
@@ -110,12 +114,13 @@
                     
                     <div style = "margin:10px; border-radius:10px; text-align:center;">
                         <img style = "max-width:120px; min-width:80px" src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokeDato["id"]}.gif">
-                        N°${pokeDato["id"]}
+                        
                     </div>
                     
                     <center><h2> ${pokeDato.name}</h2></center>
                 </div>
                 <div class = "datos">
+                    N°${pokeDato["id"]}
                     <h2>Datos</h2><br>
                     ${stados}
                 </div>

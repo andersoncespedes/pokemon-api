@@ -4,13 +4,24 @@ function Api(api){
 }
 Api.prototype.main = async function(){
     try{
-        let res = await fetch("https://pokeapi.co/api/v2/pokemon");
+        let res = await fetch(this.data);
         let data = res.json();  
         return data;
      }
      catch(err){
          console.log(err);
      }
+}
+Api.prototype.botones = async function(param){
+    this.content.innerHTML = "";
+    let datos = await this.main();
+    if(param == "next"){
+        this.data = datos.next;
+    }
+    else{
+        this.data = datos.previous;
+    }
+    this.Rec();
 }
 Api.prototype.pokeDatos = async function(param){
     try{
@@ -23,13 +34,14 @@ Api.prototype.pokeDatos = async function(param){
 }
 Api.prototype.Rec = async function(){
     let datos = await this.main()
+    console.log(datos)
     datos.results.forEach(async element => {
         let pokedato =  await this.pokeDatos(element.url);
         this.generador(pokedato)
     });
 } 
 Api.prototype.types = function(types){
-    return types.map(e => `<span class = "${e.type.name}">${e.type.name}</span>`);
+    return types.map(e => `<span class = "${e.type.name} bord">${e.type.name}</span>`);
 }
 Api.prototype.generador = async function(pokedato){
     let tipos =  this.types(pokedato.types);
@@ -49,6 +61,14 @@ Api.prototype.generador = async function(pokedato){
     </div>
     `;
 }
+const next = document.getElementById("next");
+const prev = document.getElementById("prev");
 
 const api = new Api("https://pokeapi.co/api/v2/pokemon");
 api.Rec();
+next.addEventListener("click", () => {
+    api.botones("next");
+})
+prev.addEventListener("click", () => {
+    api.botones("prev");
+})
